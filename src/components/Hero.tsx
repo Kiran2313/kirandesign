@@ -15,14 +15,14 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="max-w-3xl"
-        >
+          className="max-w-3xl">
+          
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-primary font-medium mb-4 tracking-wider uppercase text-sm"
-          >
+            className="text-primary font-medium mb-4 tracking-wider uppercase text-sm">
+            
             UI/UX Designer & Graphic Designer
           </motion.p>
 
@@ -34,8 +34,8 @@ const Hero = () => {
             <span className="text-gradient">Visuals.</span>
           </h1>
 
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-4">
-            B.Tech CSE Final Year
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-4 font-extrabold">Kethavath Kiran is a final-year B.Tech (CSE)
+
           </p>
 
           <p className="text-muted-foreground md:text-lg max-w-2xl mb-8 leading-relaxed">
@@ -58,13 +58,13 @@ const Hero = () => {
       <motion.div
         className="absolute top-1/4 right-10 w-20 h-20 border border-primary/30 rounded-lg"
         animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      />
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
+      
       <motion.div
-        className="absolute bottom-1/3 right-1/4 w-12 h-12 bg-accent/20 rounded-full animate-float"
-      />
-    </section>
-  );
+        className="absolute bottom-1/3 right-1/4 w-12 h-12 bg-accent/20 rounded-full animate-float" />
+      
+    </section>);
+
 };
 
 export default Hero;
