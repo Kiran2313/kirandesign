@@ -2,32 +2,35 @@ import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 
 const caseStudies = [
-{
-  title: "Bajaj Motorcycle App",
-  desc: "A mobile application concept for motorcycle users to explore models, book test rides, track service history, and manage vehicle details.",
-  tags: ["Mobile App", "UX Research", "UI Design"]
-},
-{
-  title: "Tailoring Platform",
-  desc: "A digital tailoring platform to simplify appointment booking, measurement tracking, order customization, and delivery management.",
-  tags: ["Web App", "Case Study", "UX Design"]
-},
-{
-  title: "Gugulotre Redesign",
-  desc: "A complete website redesign focusing on improved user experience, brand consistency, modern UI layout, and structured information flow.",
-  tags: ["Website", "Redesign", "Branding"]
-}];
-
+  {
+    title: "Bajaj Motorcycle App",
+    desc: "A mobile application concept for motorcycle users to explore models, book test rides, track service history, and manage vehicle details in one seamless experience.",
+    tags: ["Mobile App", "UX Research", "UI Design"],
+    image: "https://i.postimg.cc/BnTvFgXH/Bajaj-Motorcycle-App-Case-study-front-cover.jpg",
+  },
+  {
+    title: "Tailoring Platform",
+    desc: "A digital tailoring platform designed to simplify appointment booking, measurement tracking, customization, and order management.",
+    tags: ["Web App", "Case Study", "UX Design"],
+    image: "https://i.postimg.cc/Gh08s9Xc/Tailoring-Casestudy-4.jpg",
+  },
+  {
+    title: "Gugulotre Redesign",
+    desc: "A complete website redesign focused on improved user experience, modern UI layout, structured content, and brand consistency.",
+    tags: ["Website", "Redesign", "Branding"],
+    image: "https://i.postimg.cc/c1t0Ymzg/Gugulotre-Case-study-cover.jpg",
+  },
+];
 
 const graphicProjects = [
-"KGN Software Poster",
-"SNAPIN Poster",
-"Sweets Banner",
-"Computer Course Banner",
-"Gulab Jamuna Packet Design",
-"Dipper Package Design",
-"Chips Package Design"];
-
+  { title: "Invitation Card Design", image: "https://i.postimg.cc/P5YBrVNB/Invitation1.jpg" },
+  { title: "SNAPIN Poster Design", image: "https://i.postimg.cc/wxrP5YmZ/Snapin-31.jpg" },
+  { title: "Sweets Promotional Banner", image: "https://i.postimg.cc/Y24kB3fv/Sweets-banner.jpg" },
+  { title: "Women's Revolution Poster", image: "https://i.postimg.cc/6Qyw6fJH/Women-s-Revolution-page-0001.jpg" },
+  { title: "Gulab Jamuna Packaging Design", image: "https://i.postimg.cc/vBFjRrQr/gulab-jamuna-1.png" },
+  { title: "Dipper Packaging Design", image: "https://i.postimg.cc/hjvJBdpS/1bd0a8af-f225-427a-bc06-04618f595043.png" },
+  { title: "Chips Packaging Design", image: "https://i.postimg.cc/90Gw8jLD/Free-Snacks-Pouch-PSD-Mockup-03-Recovered.png" },
+];
 
 const Portfolio = () => {
   return (
@@ -37,8 +40,8 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16">
-          
+          className="text-center mb-16"
+        >
           <p className="text-primary font-medium text-sm uppercase tracking-wider mb-2">My Work</p>
           <h2 className="text-3xl md:text-5xl font-bold">
             Featured <span className="text-gradient">Portfolio</span>
@@ -48,19 +51,22 @@ const Portfolio = () => {
         {/* Case Studies */}
         <h3 className="text-2xl font-bold mb-8 text-gradient inline-block">UI/UX Case Studies</h3>
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {caseStudies.map((study, i) =>
-          <motion.div
-            key={study.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="glass rounded-xl overflow-hidden group hover:shadow-glow transition-all duration-300">
-            
-              <div className="h-48 bg-gradient-glow flex items-center justify-center">
-                <span className="text-4xl font-bold text-primary/30 group-hover:text-primary/50 transition-colors">
-                  0{i + 1}
-                </span>
+          {caseStudies.map((study, i) => (
+            <motion.div
+              key={study.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="glass rounded-xl overflow-hidden group hover:shadow-glow transition-all duration-300"
+            >
+              <div className="h-48 overflow-hidden">
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
               </div>
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
@@ -69,37 +75,49 @@ const Portfolio = () => {
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">{study.desc}</p>
                 <div className="flex flex-wrap gap-2">
-                  {study.tags.map((tag) =>
-                <span key={tag} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+                  {study.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                    >
                       {tag}
                     </span>
-                )}
+                  ))}
                 </div>
               </div>
             </motion.div>
-          )}
+          ))}
         </div>
 
         {/* Graphic Design */}
         <h3 className="text-2xl font-bold mb-8 text-gradient inline-block">Graphic Design Projects</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {graphicProjects.map((project, i) =>
-          <motion.div
-            key={project}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            className="glass rounded-lg p-5 text-center hover:shadow-glow hover:border-primary/30 transition-all duration-300 group cursor-pointer">
-            
-              <div className="w-12 h-12 rounded-lg bg-gradient-primary mx-auto mb-3 opacity-60 group-hover:opacity-100 transition-opacity border-primary-foreground" />
-              <p className="text-sm font-medium text-foreground">{project}</p>
+          {graphicProjects.map((project, i) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="glass rounded-lg overflow-hidden hover:shadow-glow hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+            >
+              <div className="aspect-[3/4] overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-4">
+                <p className="text-sm font-medium text-foreground text-center">{project.title}</p>
+              </div>
             </motion.div>
-          )}
+          ))}
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 };
 
 export default Portfolio;
