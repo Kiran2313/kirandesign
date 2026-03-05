@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+
+const RESUME_URL = "https://i.postimg.cc/NjmYK7dm/Kethavath-Kiran-UIUX-Designer-Resume-(1).png";
 
 const Hero = () => {
   return (
@@ -48,8 +51,11 @@ const Hero = () => {
               <Button variant="hero" size="lg" asChild>
                 <a href="#portfolio">View My Work</a>
               </Button>
-              <Button variant="heroOutline" size="lg" asChild>
-                <a href="#contact">Contact Me</a>
+              <Button variant="heroOutline" size="lg" asChild className="gap-2">
+                <a href={RESUME_URL} download="Kethavath_Kiran_Resume.png">
+                  <Download className="w-4 h-4" />
+                  Download Resume
+                </a>
               </Button>
             </div>
           </motion.div>
