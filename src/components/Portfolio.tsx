@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn } from "lucide-react";
+import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
 const caseStudies = [
   {
@@ -38,7 +38,13 @@ const graphicProjects = [
 
 const Portfolio = () => {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null);
-  const [selectedGraphic, setSelectedGraphic] = useState<typeof graphicProjects[0] | null>(null);
+  const [selectedGraphicIndex, setSelectedGraphicIndex] = useState<number | null>(null);
+
+  const navigateGraphic = (dir: number) => {
+    if (selectedGraphicIndex === null) return;
+    const next = (selectedGraphicIndex + dir + graphicProjects.length) % graphicProjects.length;
+    setSelectedGraphicIndex(next);
+  };
 
   return (
     <section id="portfolio" className="py-20 md:py-24">
@@ -66,7 +72,7 @@ const Portfolio = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               onClick={() => setSelectedStudy(study)}
-              className="relative rounded-xl overflow-hidden group cursor-pointer h-72 hover:shadow-glow transition-all duration-300"
+              className="relative rounded-xl overflow-hidden group cursor-pointer h-72 hover:shadow-glow hover:-translate-y-1 transition-all duration-300 border border-border/50 hover:border-primary/30"
             >
               <img
                 src={study.image}
@@ -97,7 +103,7 @@ const Portfolio = () => {
 
         {/* Graphic Design */}
         <h3 className="text-2xl font-bold mb-8 text-gradient inline-block">Graphic Design Projects</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {graphicProjects.map((project, i) => (
             <motion.div
               key={project.title}
@@ -105,7 +111,7 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              onClick={() => setSelectedGraphic(project)}
+              onClick={() => setSelectedGraphicIndex(i)}
               className="glass rounded-lg overflow-hidden hover:shadow-glow hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
             >
               <div className="aspect-[3/4] overflow-hidden relative">
@@ -157,32 +163,48 @@ const Portfolio = () => {
         )}
       </AnimatePresence>
 
-      {/* Graphic Fullscreen Modal */}
+      {/* Graphic Fullscreen Modal with Navigation */}
       <AnimatePresence>
-        {selectedGraphic && (
+        {selectedGraphicIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setSelectedGraphic(null)}
+            onClick={() => setSelectedGraphicIndex(null)}
           >
             <button
-              onClick={() => setSelectedGraphic(null)}
+              onClick={() => setSelectedGraphicIndex(null)}
               className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full glass hover:bg-primary/10 transition-colors z-10"
             >
               <X className="w-5 h-5" />
+            </button>
+            {/* Left arrow */}
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateGraphic(-1); }}
+              className="absolute left-4 md:left-8 p-3 rounded-full glass hover:bg-primary/10 transition-colors z-10"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            {/* Right arrow */}
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateGraphic(1); }}
+              className="absolute right-4 md:right-8 p-3 rounded-full glass hover:bg-primary/10 transition-colors z-10"
+            >
+              <ChevronRight className="w-6 h-6" />
             </button>
             <div
               className="max-w-4xl max-h-[90vh] overflow-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={selectedGraphic.image}
-                alt={selectedGraphic.title}
+                src={graphicProjects[selectedGraphicIndex].image}
+                alt={graphicProjects[selectedGraphicIndex].title}
                 className="w-full h-auto object-contain"
               />
-              <p className="text-center text-sm text-muted-foreground mt-4">{selectedGraphic.title}</p>
+              <p className="text-center text-sm text-muted-foreground mt-4">
+                {graphicProjects[selectedGraphicIndex].title}
+              </p>
             </div>
           </motion.div>
         )}
