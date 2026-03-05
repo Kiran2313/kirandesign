@@ -2,13 +2,29 @@ import { motion } from "framer-motion";
 import { Mail, Phone, Linkedin, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:kiran.kethavath97@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${formData.message}`;
+    setSending(true);
+    try {
+      await emailjs.send("service_s19awc8", "template_h4l8gmf", {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      }, "DoaPa3ykdD2VXS3C5");
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
