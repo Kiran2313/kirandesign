@@ -130,8 +130,8 @@ const Contact = () => {
                 placeholder="Your message"
               />
             </div>
-            <Button variant="hero" size="lg" type="submit" className="w-full">
-              Send Message
+            <Button variant="hero" size="lg" type="submit" className="w-full" disabled={sending}>
+              {sending ? "Sending..." : "Send Message"}
             </Button>
           </motion.form>
         </div>
