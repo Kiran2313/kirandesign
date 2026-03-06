@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ZoomIn, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
 import bajajPdf from "@/assets/Bajaj Motorcycle App Case study.pdf";
 import tailoringPdf from "@/assets/Tailoring Casestudy.pdf";
@@ -42,6 +42,7 @@ const graphicProjects = [
 
 const Portfolio = () => {
   const [selectedGraphicIndex, setSelectedGraphicIndex] = useState<number | null>(null);
+  const [selectedCaseStudyIndex, setSelectedCaseStudyIndex] = useState<number | null>(null);
 
   const navigateGraphic = (dir: number) => {
     if (selectedGraphicIndex === null) return;
@@ -76,11 +77,11 @@ const Portfolio = () => {
               transition={{ delay: i * 0.1 }}
               role="button"
               tabIndex={0}
-              onClick={() => window.open(study.pdf, "_blank", "noopener,noreferrer")}
+              onClick={() => setSelectedCaseStudyIndex(i)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  window.open(study.pdf, "_blank", "noopener,noreferrer");
+                  setSelectedCaseStudyIndex(i);
                 }
               }}
               className="relative rounded-xl overflow-hidden group cursor-pointer h-72 hover:shadow-glow hover:-translate-y-1 transition-all duration-300 border border-border/50 hover:border-primary/30"
@@ -151,6 +152,48 @@ const Portfolio = () => {
           ))}
         </div>
       </div>
+
+      {/* Case Study PDF Modal */}
+      <AnimatePresence>
+        {selectedCaseStudyIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setSelectedCaseStudyIndex(null)}
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedCaseStudyIndex(null)}
+              className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full glass hover:bg-primary/10 transition-colors z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(caseStudies[selectedCaseStudyIndex].pdf, "_blank", "noopener,noreferrer");
+              }}
+              className="absolute top-4 right-16 md:top-6 md:right-16 p-2 rounded-full glass hover:bg-primary/10 transition-colors z-10"
+              title="Open in new tab"
+            >
+              <Maximize2 className="w-5 h-5" />
+            </button>
+            <div
+              className="w-full max-w-5xl h-[90vh] overflow-hidden rounded-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <iframe
+                src={caseStudies[selectedCaseStudyIndex].pdf}
+                title={caseStudies[selectedCaseStudyIndex].title}
+                className="w-full h-full border-0 rounded-xl"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Graphic Fullscreen Modal with Navigation */}
       <AnimatePresence>
