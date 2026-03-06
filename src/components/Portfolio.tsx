@@ -2,27 +2,31 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
+import bajajPdf from "@/assets/Bajaj Motorcycle App Case study.pdf";
+import tailoringPdf from "@/assets/Tailoring Casestudy.pdf";
+import gugulotrePdf from "@/assets/Gugulotre  Case study.pdf";
+
 const caseStudies = [
   {
     title: "Bajaj Motorcycle App",
     desc: "A mobile application concept for motorcycle users to explore models, book test rides, track service history, and manage vehicle details in one seamless experience.",
     tags: ["Mobile App", "UX Research", "UI Design"],
     image: "https://i.postimg.cc/BnTvFgXH/Bajaj-Motorcycle-App-Case-study-front-cover.jpg",
-    fullImage: "https://i.postimg.cc/ZYvTkS62/Bajaj-Motorcycle-App-Case-study.jpg",
+    pdf: bajajPdf,
   },
   {
     title: "Tailoring Platform",
     desc: "A digital tailoring platform designed to simplify appointment booking, measurement tracking, customization, and order management.",
     tags: ["Web App", "Case Study", "UX Design"],
     image: "https://i.postimg.cc/Gh08s9Xc/Tailoring-Casestudy-4.jpg",
-    fullImage: "https://i.postimg.cc/2642vyP2/Tailoring-Casestudy.jpg",
+    pdf: tailoringPdf,
   },
   {
     title: "Gugulotre Redesign",
     desc: "A complete website redesign focused on improved user experience, modern UI layout, structured content, and brand consistency.",
     tags: ["Website", "Redesign", "Branding"],
     image: "https://i.postimg.cc/c1t0Ymzg/Gugulotre-Case-study-cover.jpg",
-    fullImage: "https://i.postimg.cc/PfYBzrWq/Gugulotre-Case-study.jpg",
+    pdf: gugulotrePdf,
   },
 ];
 
@@ -37,7 +41,6 @@ const graphicProjects = [
 ];
 
 const Portfolio = () => {
-  const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null);
   const [selectedGraphicIndex, setSelectedGraphicIndex] = useState<number | null>(null);
 
   const navigateGraphic = (dir: number) => {
@@ -71,7 +74,15 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              onClick={() => setSelectedStudy(study)}
+              role="button"
+              tabIndex={0}
+              onClick={() => window.open(study.pdf, "_blank", "noopener,noreferrer")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  window.open(study.pdf, "_blank", "noopener,noreferrer");
+                }
+              }}
               className="relative rounded-xl overflow-hidden group cursor-pointer h-72 hover:shadow-glow hover:-translate-y-1 transition-all duration-300 border border-border/50 hover:border-primary/30"
             >
               <img
@@ -111,7 +122,15 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
+              role="button"
+              tabIndex={0}
               onClick={() => setSelectedGraphicIndex(i)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedGraphicIndex(i);
+                }
+              }}
               className="glass rounded-lg overflow-hidden hover:shadow-glow hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
             >
               <div className="aspect-[3/4] overflow-hidden relative">
@@ -133,36 +152,6 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Case Study Full View Modal */}
-      <AnimatePresence>
-        {selectedStudy && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm overflow-y-auto"
-            onClick={() => setSelectedStudy(null)}
-          >
-            <div className="sticky top-0 z-10 flex items-center justify-between p-4 md:p-6 bg-background/80 backdrop-blur-md border-b border-border">
-              <h3 className="text-lg font-bold">{selectedStudy.title}</h3>
-              <button
-                onClick={() => setSelectedStudy(null)}
-                className="p-2 rounded-full glass hover:bg-primary/10 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="max-w-5xl mx-auto p-4 md:p-8" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={selectedStudy.fullImage}
-                alt={selectedStudy.title}
-                className="w-full h-auto rounded-xl"
-              />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Graphic Fullscreen Modal with Navigation */}
       <AnimatePresence>
         {selectedGraphicIndex !== null && (
@@ -174,6 +163,7 @@ const Portfolio = () => {
             onClick={() => setSelectedGraphicIndex(null)}
           >
             <button
+              type="button"
               onClick={() => setSelectedGraphicIndex(null)}
               className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full glass hover:bg-primary/10 transition-colors z-10"
             >
@@ -181,6 +171,7 @@ const Portfolio = () => {
             </button>
             {/* Left arrow */}
             <button
+              type="button"
               onClick={(e) => { e.stopPropagation(); navigateGraphic(-1); }}
               className="absolute left-4 md:left-8 p-3 rounded-full glass hover:bg-primary/10 transition-colors z-10"
             >
@@ -188,6 +179,7 @@ const Portfolio = () => {
             </button>
             {/* Right arrow */}
             <button
+              type="button"
               onClick={(e) => { e.stopPropagation(); navigateGraphic(1); }}
               className="absolute right-4 md:right-8 p-3 rounded-full glass hover:bg-primary/10 transition-colors z-10"
             >

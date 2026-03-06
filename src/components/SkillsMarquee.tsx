@@ -4,7 +4,7 @@ const skills = [
   { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
   { name: "Photoshop", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-original.svg" },
   { name: "Illustrator", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" },
-  { name: "CorelDRAW", icon: "https://upload.wikimedia.org/wikipedia/en/7/7b/CorelDRAW_2020_icon.svg" },
+  { name: "CorelDRAW", icon: "https://cdn.simpleicons.org/coreldraw/6EB43F" },
   { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
   { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
 ];

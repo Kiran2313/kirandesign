@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Palette, Layout, Globe, Smartphone, PenTool, Package } from "lucide-react";
+import { Globe, Smartphone, PenTool } from "lucide-react";
 
 const services = [
   {

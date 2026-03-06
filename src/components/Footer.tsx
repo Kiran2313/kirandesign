@@ -1,11 +1,13 @@
 import { Mail, Phone, Linkedin, Palette } from "lucide-react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        <p className="text-sm text-muted-foreground">
-          © 2025 Kethavath Kiran. All Rights Reserved.
+        <p className="text-sm text-muted-foreground text-center md:text-left">
+          © {currentYear} Kethavath Kiran. All Rights Reserved.
         </p>
         <div className="flex items-center gap-6 flex-wrap justify-center">
           <a href="mailto:kiran.kethavath97@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
