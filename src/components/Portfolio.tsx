@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
@@ -44,6 +44,16 @@ const Portfolio = () => {
   const [selectedGraphicIndex, setSelectedGraphicIndex] = useState<number | null>(null);
   const [selectedCaseStudyIndex, setSelectedCaseStudyIndex] = useState<number | null>(null);
 
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  const openCaseStudy = useCallback((i: number) => {
+    if (isMobile) {
+      window.open(caseStudies[i].pdf, "_blank", "noopener,noreferrer");
+    } else {
+      setSelectedCaseStudyIndex(i);
+    }
+  }, [isMobile]);
+
   const navigateGraphic = (dir: number) => {
     if (selectedGraphicIndex === null) return;
     const next = (selectedGraphicIndex + dir + graphicProjects.length) % graphicProjects.length;
@@ -77,11 +87,11 @@ const Portfolio = () => {
               transition={{ delay: i * 0.1 }}
               role="button"
               tabIndex={0}
-              onClick={() => setSelectedCaseStudyIndex(i)}
+              onClick={() => openCaseStudy(i)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  setSelectedCaseStudyIndex(i);
+                  openCaseStudy(i);
                 }
               }}
               className="relative rounded-xl overflow-hidden group cursor-pointer h-72 hover:shadow-glow hover:-translate-y-1 transition-all duration-300 border border-border/50 hover:border-primary/30"
